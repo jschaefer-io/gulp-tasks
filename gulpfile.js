@@ -1,12 +1,14 @@
 /**
  * defs
  **/
-var gulp 	= require('gulp'),
-	concat 	= require('gulp-concat'),
-	sass 	= require('gulp-sass'),
-	watch	= require('gulp-watch'),
-	jsmin	= require('gulp-jsmin'),
-	cssmin	= require('gulp-cssmin');
+var gulp 			= require('gulp'),
+	concat 			= require('gulp-concat'),
+	sass 			= require('gulp-sass'),
+	watch			= require('gulp-watch'),
+	jsmin			= require('gulp-jsmin'),
+	cssmin			= require('gulp-cssmin'),
+	notify 			= require('gulp-notify'),
+	autoprefixer 	= require('gulp-autoprefixer');
 
 /**
  * basic files array
@@ -35,22 +37,24 @@ var paths = {
  * gulp minified build task
  **/
 gulp.task('build', function(){
-	console.log('build js files (minified) ...');
 	gulp.src(paths.js.files)
 		.pipe(concat('app.js'))
 		.pipe(jsmin())
 		.pipe(gulp.dest('./' + paths.dirs.to + '/js/'));
 
-
-	console.log('build scss files (minified) ...');
 	gulp.src(paths.scss.files)
 		.pipe(sass({
 			includePaths: paths.scss.includePaths
+		}).on('error', function(error){
+			return notify().write(error);
+		}))
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
 		}))
 		.pipe(cssmin())
-		.pipe(gulp.dest('./' + paths.dirs.to + '/css/'));
-
-	console.log('... done!');
+		.pipe(gulp.dest('./' + paths.dirs.to + '/css/'))
+		.pipe(notify('Build task successful!'));
 });
 
 
@@ -60,20 +64,21 @@ gulp.task('build', function(){
  **/
 gulp.task('default', function(){
 	return watch(paths.dirs.from + '/**/*', function(){
-
-		console.log('build js files...');
 		gulp.src(paths.js.files)
 			.pipe(concat('app.js'))
 			.pipe(gulp.dest('./' + paths.dirs.to + '/js/'));
 
-
-		console.log('build scss files...');
 		gulp.src(paths.scss.files)
 			.pipe(sass({
-				includePaths: paths.scss.includePaths
+			includePaths: paths.scss.includePaths
+			}).on('error', function(error){
+				return notify().write(error);
 			}))
-			.pipe(gulp.dest('./' + paths.dirs.to + '/css/'));
-
-		console.log('... done!');
+			.pipe(autoprefixer({
+				browsers: ['last 2 versions'],
+				cascade: true
+			}))
+			.pipe(gulp.dest('./' + paths.dirs.to + '/css/'))
+			.pipe(notify('Build task successful!'));
 	});
 })
