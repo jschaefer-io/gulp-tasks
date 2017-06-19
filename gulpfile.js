@@ -4,7 +4,6 @@
 var gulp 			= require('gulp'),
 	concat 			= require('gulp-concat'),
 	sass 			= require('gulp-sass'),
-	watch			= require('gulp-watch'),
 	jsmin			= require('gulp-jsmin'),
 	cssmin			= require('gulp-cssmin'),
 	notify 			= require('gulp-notify'),
@@ -15,8 +14,8 @@ var gulp 			= require('gulp'),
  **/
 var paths = {
 	'dirs'	: {
-		'from' 	: 'src',
-		'to'	: 'dist'
+		'from' 	: './src',
+		'to'	: './dist'
 	},
 	'scss'	: {
 		'files' : [
@@ -40,7 +39,7 @@ gulp.task('build', function(){
 	gulp.src(paths.js.files)
 		.pipe(concat('app.js'))
 		.pipe(jsmin())
-		.pipe(gulp.dest('./' + paths.dirs.to + '/js/'));
+		.pipe(gulp.dest(paths.dirs.to + '/js/'));
 
 	gulp.src(paths.scss.files)
 		.pipe(sass({
@@ -49,11 +48,11 @@ gulp.task('build', function(){
 			return notify().write(error);
 		}))
 		.pipe(autoprefixer({
-			browsers: ['last 2 versions'],
+			browsers: ['last 4 versions'],
 			cascade: false
 		}))
 		.pipe(cssmin())
-		.pipe(gulp.dest('./' + paths.dirs.to + '/css/'))
+		.pipe(gulp.dest(paths.dirs.to + '/css/'))
 		.pipe(notify('Build task successful!'));
 });
 
@@ -63,10 +62,10 @@ gulp.task('build', function(){
  * gulp watched build task
  **/
 gulp.task('default', function(){
-	return watch(paths.dirs.from + '/**/*', function(){
+	return gulp.watch(paths.dirs.from + '/**/*', function(){
 		gulp.src(paths.js.files)
 			.pipe(concat('app.js'))
-			.pipe(gulp.dest('./' + paths.dirs.to + '/js/'));
+			.pipe(gulp.dest(paths.dirs.to + '/js/'));
 
 		gulp.src(paths.scss.files)
 			.pipe(sass({
@@ -78,7 +77,7 @@ gulp.task('default', function(){
 				browsers: ['last 2 versions'],
 				cascade: true
 			}))
-			.pipe(gulp.dest('./' + paths.dirs.to + '/css/'))
+			.pipe(gulp.dest(paths.dirs.to + '/css/'))
 			.pipe(notify('Build task successful!'));
 	});
 })
