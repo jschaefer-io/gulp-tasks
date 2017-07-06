@@ -7,7 +7,8 @@ var gulp 			= require('gulp'),
 	jsmin			= require('gulp-jsmin'),
 	cssmin			= require('gulp-cssmin'),
 	notify 			= require('gulp-notify'),
-	autoprefixer 	= require('gulp-autoprefixer');
+	autoprefixer 	= require('gulp-autoprefixer'),
+	browserSync 	= require('browser-sync').create();
 
 /**
  * basic files array
@@ -33,6 +34,17 @@ var paths = {
 
 
 /**
+ * basic options array
+ **/
+var options = {
+	'sync' : {
+		'rel' : true,
+		'value' : '../'
+	}
+}
+
+
+/**
  * gulp minified build task
  **/
 gulp.task('build', function(){
@@ -52,32 +64,66 @@ gulp.task('build', function(){
 			cascade: false
 		}))
 		.pipe(cssmin())
-		.pipe(gulp.dest(paths.dirs.to + '/css/'))
-		.pipe(notify('Build task successful!'));
+		.pipe(gulp.dest(paths.dirs.to + '/css/'));
 });
 
 
+/**
+* gulp basic styles task
+**/
+gulp.task('styles', function(){
+	return gulp.src(paths.scss.files)
+		.pipe(sass({
+		includePaths: paths.scss.includePaths
+		}).on('error', function(error){
+			return notify().write(error);
+		}))
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: true
+		}))
+		.pipe(gulp.dest(paths.dirs.to + '/css/'));
+});
 
 /**
- * gulp watched build task
- **/
-gulp.task('default', function(){
-	return gulp.watch(paths.dirs.from + '/**/*', function(){
-		gulp.src(paths.js.files)
-			.pipe(concat('app.js'))
-			.pipe(gulp.dest(paths.dirs.to + '/js/'));
+* gulp basic scripts task
+**/
+gulp.task('scripts', function(){
+	return gulp.src(paths.js.files)
+		.pipe(concat('app.js'))
+		.pipe(gulp.dest(paths.dirs.to + '/js/'));
+});
 
-		gulp.src(paths.scss.files)
-			.pipe(sass({
-			includePaths: paths.scss.includePaths
-			}).on('error', function(error){
-				return notify().write(error);
-			}))
-			.pipe(autoprefixer({
-				browsers: ['last 2 versions'],
-				cascade: true
-			}))
-			.pipe(gulp.dest(paths.dirs.to + '/css/'))
-			.pipe(notify('Build task successful!'));
-	});
+
+/**
+* gulp basic watch task
+**/
+gulp.task('default', function(){
+	return gulp.watch(paths.dirs.from + '/**/*', ['scripts', 'styles']);
+})
+
+
+/**
+ * gulp browser sync task
+ **/
+gulp.task('sync', ['scripts', 'styles'], function(){
+	var obj = {};
+	if (options.sync.rel) {
+		obj.server = {
+            baseDir: options.sync.value
+        };
+	}
+	else{
+		obj.proxy = options.sync.value;
+	}
+	browserSync.init(obj);
+	gulp.watch(paths.dirs.from + '/**/*', ['sync-build'])
+});
+
+/**
+* gulp browser reload handler
+**/
+gulp.task('sync-build', ['scripts', 'styles'], function(done){
+	browserSync.reload();
+    done();
 })
