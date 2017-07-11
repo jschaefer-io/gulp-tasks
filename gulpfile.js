@@ -1,5 +1,5 @@
 /**
- * defs
+ * Dependencies
  **/
 var gulp 			= require('gulp'),
 	concat 			= require('gulp-concat'),
@@ -8,10 +8,13 @@ var gulp 			= require('gulp'),
 	cssmin			= require('gulp-cssmin'),
 	notify 			= require('gulp-notify'),
 	autoprefixer 	= require('gulp-autoprefixer'),
-	browserSync 	= require('browser-sync').create();
+	browserSync 	= require('browser-sync').create(),
+	postcss 		= require('gulp-postcss'),
+	mdcss 			= require('mdcss'),
+	lec 			= require('gulp-line-ending-corrector');
 
 /**
- * basic files array
+ * Filedirectories
  **/
 var paths = {
 	'dirs'	: {
@@ -23,10 +26,12 @@ var paths = {
 			'./src/scss/app.scss'
 		],
 		'includePaths' : [
+			'./node_modules/foundation-sites/scss'
 		]
 	},
 	'js'	: {
 		'files' : [
+			'./node_modules/jquery/dist/jquery.js',
 			'./src/js/app.js'
 		]
 	},
@@ -34,12 +39,16 @@ var paths = {
 
 
 /**
- * basic options array
+ * Options regarding some tasks
  **/
 var options = {
 	'sync' : {
 		'rel' : true,
 		'value' : '../'
+	},
+	'styleguide': {
+		'folder' : 'styleguide',
+		'file' : 'app.css'
 	}
 }
 
@@ -98,7 +107,7 @@ gulp.task('scripts', function(){
 /**
 * gulp basic watch task
 **/
-gulp.task('default', function(){
+gulp.task('default', ['scripts', 'styles'], function(){
 	return gulp.watch(paths.dirs.from + '/**/*', ['scripts', 'styles']);
 })
 
@@ -120,10 +129,35 @@ gulp.task('sync', ['scripts', 'styles'], function(){
 	gulp.watch(paths.dirs.from + '/**/*', ['sync-build'])
 });
 
+
 /**
 * gulp browser reload handler
 **/
 gulp.task('sync-build', ['scripts', 'styles'], function(done){
 	browserSync.reload();
     done();
-})
+});
+
+
+
+/**
+ * generates a styleguide from the compiled css
+ * @see http://jonathantneal.github.io/mdcss-theme-github/demo/
+ **/
+gulp.task('styleguide', ['styles'], function () {
+	return gulp.src(paths.dirs.to + '/css/' + options.styleguide.file)
+		.pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}))
+		.pipe(
+			postcss([
+				mdcss({
+					destination: options.styleguide.folder,
+					examples: {
+						css: [options.styleguide.file]
+					}
+				})
+			])
+		).pipe(
+			gulp.dest('./' + options.styleguide.folder)
+		);
+});
+
