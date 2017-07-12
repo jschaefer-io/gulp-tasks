@@ -152,12 +152,10 @@ gulp.task('styleguide', ['styles'], function () {
 				mdcss({
 					destination: options.styleguide.folder,
 					examples: {
-						css: [options.styleguide.file]
+						css: ['../' + paths.dirs.to + '/css/' + options.styleguide.file]
 					}
 				})
 			])
-		).pipe(
-			gulp.dest('./' + options.styleguide.folder)
 		);
 });
 
