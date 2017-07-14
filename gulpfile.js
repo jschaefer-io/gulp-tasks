@@ -1,19 +1,4 @@
 /**
- * Dependencies
- **/
-var gulp 			= require('gulp'),
-	concat 			= require('gulp-concat'),
-	sass 			= require('gulp-sass'),
-	jsmin			= require('gulp-jsmin'),
-	cssmin			= require('gulp-cssmin'),
-	notify 			= require('gulp-notify'),
-	autoprefixer 	= require('gulp-autoprefixer'),
-	browserSync 	= require('browser-sync').create(),
-	postcss 		= require('gulp-postcss'),
-	mdcss 			= require('mdcss'),
-	lec 			= require('gulp-line-ending-corrector');
-
-/**
  * Filedirectories
  **/
 var paths = {
@@ -26,12 +11,10 @@ var paths = {
 			'./src/scss/app.scss'
 		],
 		'includePaths' : [
-			'./node_modules/foundation-sites/scss'
 		]
 	},
 	'js'	: {
 		'files' : [
-			'./node_modules/jquery/dist/jquery.js',
 			'./src/js/app.js'
 		]
 	},
@@ -51,6 +34,22 @@ var options = {
 		'file' : 'app.css'
 	}
 }
+
+
+/**
+ * Dependencies
+ **/
+var gulp 			= require('gulp'),
+	concat 			= require('gulp-concat'),
+	sass 			= require('gulp-sass'),
+	jsmin			= require('gulp-jsmin'),
+	cssmin			= require('gulp-cssmin'),
+	notify 			= require('gulp-notify'),
+	autoprefixer 	= require('gulp-autoprefixer'),
+	browserSync 	= require('browser-sync').create(),
+	postcss 		= require('gulp-postcss'),
+	mdcss 			= require('mdcss'),
+	lec 			= require('gulp-line-ending-corrector');
 
 
 /**
