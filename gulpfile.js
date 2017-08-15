@@ -13,6 +13,14 @@ var paths = {
 		'includePaths' : [
 		]
 	},
+	'assets': {
+		'dirs' : [
+			{
+				'from': './src/img/**/*',
+				'to': 'img'
+			}
+		]
+	},
 	'js'	: {
 		'files' : [
 			'./src/js/app.js'
@@ -53,9 +61,19 @@ var gulp 			= require('gulp'),
 
 
 /**
+ * gulp asset copy task
+ **/
+gulp.task('assets', function(){
+	for (var i = 0; i < paths.assets.dirs.length; i++) {
+		gulp.src(paths.assets.dirs[i].from)
+			.pipe(gulp.dest(paths.dirs.to + '/' + paths.assets.dirs[i].to));
+	}
+});
+
+/**
  * gulp minified build task
  **/
-gulp.task('build', function(){
+gulp.task('build', ['assets'], function(){
 	gulp.src(paths.js.files)
 		.pipe(concat('app.js'))
 		.pipe(jsmin())
@@ -106,15 +124,15 @@ gulp.task('scripts', function(){
 /**
 * gulp basic watch task
 **/
-gulp.task('default', ['scripts', 'styles'], function(){
-	return gulp.watch(paths.dirs.from + '/**/*', ['scripts', 'styles']);
+gulp.task('default', ['scripts', 'styles', 'assets'], function(){
+	return gulp.watch(paths.dirs.from + '/**/*', ['scripts', 'styles', 'assets']);
 })
 
 
 /**
  * gulp browser sync task
  **/
-gulp.task('sync', ['scripts', 'styles'], function(){
+gulp.task('sync', ['scripts', 'styles', 'assets'], function(){
 	var obj = {};
 	if (options.sync.rel) {
 		obj.server = {
@@ -132,7 +150,7 @@ gulp.task('sync', ['scripts', 'styles'], function(){
 /**
 * gulp browser reload handler
 **/
-gulp.task('sync-build', ['scripts', 'styles'], function(done){
+gulp.task('sync-build', ['scripts', 'styles', 'assets'], function(done){
 	browserSync.reload();
     done();
 });

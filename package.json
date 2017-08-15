@@ -7,6 +7,7 @@
     "build": "gulp build",
     "styles": "gulp styles",
     "scripts": "gulp scripts",
+    "assets": "gulp assets",
     "dev": "gulp default",
     "sync": "gulp sync",
     "guide": "gulp styleguide"   
