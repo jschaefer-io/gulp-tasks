@@ -57,7 +57,8 @@ var gulp 			= require('gulp'),
 	browserSync 	= require('browser-sync').create(),
 	postcss 		= require('gulp-postcss'),
 	mdcss 			= require('mdcss'),
-	lec 			= require('gulp-line-ending-corrector');
+	lec 			= require('gulp-line-ending-corrector'),
+	babel 			= require('gulp-babel');
 
 
 /**
@@ -76,6 +77,11 @@ gulp.task('assets', function(){
 gulp.task('build', ['assets'], function(){
 	gulp.src(paths.js.files)
 		.pipe(concat('app.js'))
+		.pipe(babel({
+			presets: ['env']
+		}).on('error', function(error){
+			return notify().write(error);
+		}))
 		.pipe(jsmin())
 		.pipe(gulp.dest(paths.dirs.to + '/js/'));
 
@@ -117,6 +123,11 @@ gulp.task('styles', function(){
 gulp.task('scripts', function(){
 	return gulp.src(paths.js.files)
 		.pipe(concat('app.js'))
+		.pipe(babel({
+			presets: ['env']
+		}).on('error', function(error){
+			return notify().write(error);
+		}))
 		.pipe(gulp.dest(paths.dirs.to + '/js/'));
 });
 
