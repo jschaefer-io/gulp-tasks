@@ -1,3 +1,5 @@
 node_modules/
 dist/
 styleguide/
+package-lock\.json
+abovethefold\.json

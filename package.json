@@ -4,13 +4,14 @@
   "description": "project description",
   "main": "index.js",
   "scripts": {
-    "build": "gulp build",
-    "styles": "gulp styles",
-    "scripts": "gulp scripts",
-    "assets": "gulp assets",
-    "dev": "gulp default",
-    "sync": "gulp sync",
-    "guide": "gulp styleguide"
+    "build": "gulp --gulpfile scripts/gulpfile.js --cwd . build",
+    "styles": "gulp --gulpfile scripts/gulpfile.js --cwd . styles",
+    "scripts": "gulp --gulpfile scripts/gulpfile.js --cwd . scripts",
+    "assets": "gulp --gulpfile scripts/gulpfile.js --cwd . assets",
+    "dev": "gulp --gulpfile scripts/gulpfile.js --cwd . default",
+    "sync": "gulp --gulpfile scripts/gulpfile.js --cwd . sync",
+    "guide": "gulp --gulpfile scripts/gulpfile.js --cwd . styleguide",
+    "abovefold": "npm run build & node scripts/abovethefold.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,7 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.2.0",
@@ -29,6 +30,7 @@
     "gulp-notify": "^3.0.0",
     "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
-    "mdcss": "^1.5.2"
+    "mdcss": "^1.5.2",
+    "puppeteer": "^1.1.1"
   }
 }
