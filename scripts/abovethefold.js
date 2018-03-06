@@ -1,22 +1,26 @@
-const config 	= require('../config');
+const config 		= require('../config');
 const AboveFold		= require('./class/abovethefoldgenerator.js');
 const fs 			= require('fs');
+const path 			= require('path');
 
 
-function searchDirectory(classes, dir){
+function searchDirectory(classes, dir, match){
+	dir = dir.replace(/\*+.*?/g, '').replace(/\/+/g, '/');
+
 	let files = new Array(),
 		current = fs.readdirSync(dir, 'utf8'),
 		content,
 		exp;
+
 	current.forEach((item)=>{
 		if (fs.lstatSync(dir + '/' + item).isDirectory()) {
-			files = files.concat(searchDirectory(classes, dir + '/' + item));
+			files = files.concat(searchDirectory(classes, dir + '/' + item, match));
 		}
 		else{
 			let content = fs.readFileSync(dir + '/' + item, 'utf8');
 			classes.forEach((name)=>{
 				exp = new RegExp('\\.' + name + '(\\s|\\{|\\.|\\#)');
-				if (content.match(exp)) {
+				if (content.match(exp) && item.match(match)) {
 					files.push(dir + '/' + item);
 				}
 			});			
@@ -37,7 +41,7 @@ generator.start().then((results)=>{
 		config.options.abovefold.replace.forEach((proc)=>{
 			name = name.replace(proc[0], proc[1]);
 		});
-		out.pages[name] = Array.from(new Set(searchDirectory(results[pages], config.paths.dirs.from + '/scss')));
+		out.pages[name] = Array.from(new Set(searchDirectory(results[pages], config.paths.watch, new RegExp('(\\.scss|\\.css)','g'))));
 		out.full = out.full.concat(out.pages[name]);
 	}
 	out.full = Array.from(new Set(out.full));

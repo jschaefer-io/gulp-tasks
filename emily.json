@@ -1,0 +1,23 @@
+{
+    "path": "src/modules",
+    "modules": {},
+    "defaults": {
+        "commands": [
+            "npm init -y"
+        ],
+        "files": [
+            {
+                "name": "module.scss",
+                "content": "@import '../../app.scss';\n\n.${module}{\n\n}"
+            },
+            {
+                "name": "module.js",
+                "content": "'use strict'\n\nPage.addModule('${module}', ()=>{\n\n});"
+            },
+            {
+                "name": "module.pug",
+                "content": "div.${module} Lorem Ipsum"
+            }
+        ]
+    }
+}

@@ -12,7 +12,7 @@
     "sync": "gulp --gulpfile scripts/gulpfile.js --cwd . sync",
     "guide": "gulp --gulpfile scripts/gulpfile.js --cwd . styleguide",
     "views": "gulp --gulpfile scripts/gulpfile.js --cwd . views",
-    "abovefold": "npm run build & node scripts/abovethefold.js"
+    "abovefold": "npm run build & node scripts/abovethefold.js & gulp --gulpfile scripts/gulpfile.js --cwd . abovethefold"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
+    "emily-cm": "git+https://github.com/jschaefer-io/emily-cm.git",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.0",
@@ -34,5 +35,13 @@
     "gulp-sass": "^3.1.0",
     "mdcss": "^1.5.2",
     "puppeteer": "^1.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jschaefer-io/gulp-tasks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jschaefer-io/gulp-tasks/issues"
+  },
+  "homepage": "https://github.com/jschaefer-io/gulp-tasks#readme"
 }

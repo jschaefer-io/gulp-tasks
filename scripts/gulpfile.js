@@ -20,26 +20,28 @@ var gulp 			= require('gulp'),
 	babel 			= require('gulp-babel'),
 	pug 			= require('gulp-pug');
 
+
 /**
  * gulp asset copy task
  **/
 gulp.task('assets', function(){
-	for (var i = 0; i < config.paths.assets.dirs.length; i++) {
-		gulp.src(config.paths.assets.dirs[i].from)
-			.pipe(gulp.dest(config.paths.dirs.to + '/' + config.paths.assets.dirs[i].to));
-	}
+	config.paths.assets.files.forEach((file)=>{
+		gulp.src(file.from)
+			.pipe(gulp.dest(config.paths.assets.dist + '/' + file.to));
+	});
 });
+
 
 /**
  * gulp minified build task
  **/
 gulp.task('build', ['styles', 'scripts', 'assets'], function(){
-	gulp.src(config.paths.dirs.to + '/js/**/*', {base: './'})
-		.pipe(jsmin())
+	gulp.src(config.paths.scss.dist + '/**/*.scss', {base: './'})
+		.pipe(cssmin())
 		.pipe(gulp.dest('./'));
 
-	gulp.src(config.paths.dirs.to + '/css/**/*', {base: './'})
-		.pipe(cssmin())
+	gulp.src(config.paths.js.dist + '/**/*.js', {base: './'})
+		.pipe(jsmin())
 		.pipe(gulp.dest('./'));
 });
 
@@ -50,7 +52,7 @@ gulp.task('build', ['styles', 'scripts', 'assets'], function(){
 gulp.task('styles', function(){
 	return gulp.src(config.paths.scss.files)
 		.pipe(sass({
-		includePaths: config.paths.scss.includePaths
+			includePaths: config.paths.scss.includePaths
 		}).on('error', function(error){
 			return notify().write(error);
 		}))
@@ -58,8 +60,10 @@ gulp.task('styles', function(){
 			browsers: ['last 2 versions'],
 			cascade: true
 		}))
-		.pipe(gulp.dest(config.paths.dirs.to + '/css/'));
+		.pipe(concat('app.css'))
+		.pipe(gulp.dest(config.paths.scss.dist));
 });
+
 
 /**
 * gulp basic scripts task
@@ -73,7 +77,7 @@ gulp.task('scripts', function(){
 			}).on('error', function(error){
 				return notify().write(error);
 			}))
-			.pipe(gulp.dest(config.paths.dirs.to + '/js/'));
+			.pipe(gulp.dest(config.paths.js.dist));
 	});
 });
 
@@ -81,15 +85,15 @@ gulp.task('scripts', function(){
 /**
 * gulp basic watch task
 **/
-gulp.task('default', ['scripts', 'styles', 'assets'], function(){
-	return gulp.watch(config.paths.dirs.from + '/**/*', ['scripts', 'styles', 'assets']);
+gulp.task('default', ['scripts', 'styles', 'assets', 'views'], function(){
+	return gulp.watch(config.paths.watch, ['scripts', 'styles', 'assets']);
 })
 
 
 /**
  * gulp browser sync task
  **/
-gulp.task('sync', ['scripts', 'styles', 'assets'], function(){
+gulp.task('sync', ['scripts', 'styles', 'assets', 'views'], function(){
 	var obj = {};
 	if (config.options.sync.rel) {
 		obj.server = {
@@ -100,14 +104,14 @@ gulp.task('sync', ['scripts', 'styles', 'assets'], function(){
 		obj.proxy = config.options.sync.value;
 	}
 	browserSync.init(obj);
-	gulp.watch(config.paths.dirs.from + '/**/*', ['sync-build'])
+	gulp.watch(config.paths.watch, ['sync-build'])
 });
 
 
 /**
 * gulp browser reload handler
 **/
-gulp.task('sync-build', ['scripts', 'styles', 'assets'], function(done){
+gulp.task('sync-build', ['scripts', 'styles', 'assets', 'views'], function(done){
 	browserSync.reload();
     done();
 });
@@ -118,10 +122,7 @@ gulp.task('sync-build', ['scripts', 'styles', 'assets'], function(done){
  **/
 gulp.task('abovethefold', function(){
 	let gen = require('../abovethefold.json'),
-		name = 'abovefold',
-		addConfig = (array)=>{
-			return [config.paths.scss.settings].concat(array);
-		};
+		name = 'abovefold';
 
 	let list = [];
 	list.push({
@@ -135,8 +136,7 @@ gulp.task('abovethefold', function(){
 		});
 	}
 	list.forEach((task)=>{
-		return gulp.src(addConfig(task.files))
-			.pipe(concat('fold' + task.name + '.scss'))
+		return gulp.src(task.files)
 			.pipe(sass({
 				includePaths: config.paths.scss.includePaths
 			}).on('error', function(error){
@@ -147,17 +147,24 @@ gulp.task('abovethefold', function(){
 				cascade: true
 			}))
 			.pipe(cssmin())
-			.pipe(gulp.dest(config.paths.dirs.to + '/css/abovethefold/'));
+			.pipe(concat('fold' + task.name + '.scss'))
+			.pipe(gulp.dest(config.options.abovefold.dist));
 	})
 });
 
 
+/**
+ * Builds the HTML-Templates using pug-templates
+ * @see https://pugjs.org/api/getting-started.html
+ */
 gulp.task('views', function() {
 	return gulp.src(config.paths.pug.files)
 		.pipe(pug({
 			pretty: true
+		}).on('error', function(error){
+			return notify().write(error);
 		}))
-		.pipe(gulp.dest(config.paths.dirs.to));;
+		.pipe(gulp.dest(config.paths.pug.dist));
 });
 
 

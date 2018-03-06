@@ -1,5 +1,6 @@
 const puppeteer 	= require('puppeteer');
 const fs 			= require('fs');
+const path 			= require('path');
 
 class AboveTheFoldGenerator{
 	constructor(config, paths){
@@ -18,9 +19,9 @@ class AboveTheFoldGenerator{
 	 */
 	getClassesFromFiles(){
 		let classList = new Set();
-		let dir = fs.readdirSync(this.paths.dirs.to + '/css/', 'utf8');
+		let dir = fs.readdirSync(this.paths.scss.dist, 'utf8');
 		dir.forEach((file)=>{
-			let content = fs.readFileSync(this.paths.dirs.to + '/css/' + file, 'utf8'),
+			let content = fs.readFileSync(this.paths.scss.dist + path.sep + file, 'utf8'),
 				classes = content.match(/\.(\w|-)+/g);
 			if (classes) {
 				classes.map((el)=>{
