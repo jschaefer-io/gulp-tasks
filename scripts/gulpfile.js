@@ -17,7 +17,8 @@ var gulp 			= require('gulp'),
 	postcss 		= require('gulp-postcss'),
 	mdcss 			= require('mdcss'),
 	lec 			= require('gulp-line-ending-corrector'),
-	babel 			= require('gulp-babel');
+	babel 			= require('gulp-babel'),
+	pug 			= require('gulp-pug');
 
 /**
  * gulp asset copy task
@@ -148,6 +149,15 @@ gulp.task('abovethefold', function(){
 			.pipe(cssmin())
 			.pipe(gulp.dest(config.paths.dirs.to + '/css/abovethefold/'));
 	})
+});
+
+
+gulp.task('views', function() {
+	return gulp.src(config.paths.pug.files)
+		.pipe(pug({
+			pretty: true
+		}))
+		.pipe(gulp.dest(config.paths.dirs.to));;
 });
 
 

@@ -11,6 +11,7 @@
     "dev": "gulp --gulpfile scripts/gulpfile.js --cwd . default",
     "sync": "gulp --gulpfile scripts/gulpfile.js --cwd . sync",
     "guide": "gulp --gulpfile scripts/gulpfile.js --cwd . styleguide",
+    "views": "gulp --gulpfile scripts/gulpfile.js --cwd . views",
     "abovefold": "npm run build & node scripts/abovethefold.js"
   },
   "author": "",
@@ -29,6 +30,7 @@
     "gulp-line-ending-corrector": "^1.0.1",
     "gulp-notify": "^3.0.0",
     "gulp-postcss": "^7.0.0",
+    "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
     "mdcss": "^1.5.2",
     "puppeteer": "^1.1.1"

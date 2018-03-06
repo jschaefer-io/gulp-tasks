@@ -35,13 +35,19 @@ module.exports = {
 					'./src/js/app.js'
 				]
 			]
+		},
+		pug : {
+			// Pug Templates
+			files: [
+				'./src/pug/*.pug'
+			]
 		}
 	},
 	options: {
 		// Sync-Task Option
 		sync : {
 			rel : true, // true if relative link
-			value : '../' // path or URL
+			value : './dist' // path or URL
 		},
 		// Styleguide
 		// Generates a styleguide form all files in the above scss tasks
