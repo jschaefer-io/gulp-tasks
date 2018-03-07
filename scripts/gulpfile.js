@@ -15,7 +15,7 @@ var gulp 			= require('gulp'),
 	autoprefixer 	= require('gulp-autoprefixer'),
 	browserSync 	= require('browser-sync').create(),
 	postcss 		= require('gulp-postcss'),
-	mdcss 			= require('mdcss'),
+	kss 			= require('kss'),
 	lec 			= require('gulp-line-ending-corrector'),
 	babel 			= require('gulp-babel'),
 	pug 			= require('gulp-pug');
@@ -170,20 +170,19 @@ gulp.task('views', function() {
 
 /**
  * generates a styleguide from the compiled css
- * @see http://jonathantneal.github.io/mdcss-theme-github/demo/
+ * @see https://github.com/kss-node/kss-node
  **/
 gulp.task('styleguide', ['styles'], function () {
-	return gulp.src(config.paths.dirs.to + '/css/' + config.options.styleguide.file)
-		.pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}))
-		.pipe(
-			postcss([
-				mdcss({
-					destination: config.options.styleguide.folder,
-					examples: {
-						css: ['../' + config.paths.dirs.to + '/css/' + config.options.styleguide.file]
-					}
-				})
-			])
-		);
+	gulp.src(config.paths.scss.dist + '/' + config.options.styleguide.cssDist)
+		.pipe(gulp.dest(config.options.styleguide.dist));
+
+	return kss({
+		source: config.options.styleguide.files,
+		destination: config.options.styleguide.dist,
+		css: [config.options.styleguide.cssDist],
+		homepage: config.options.styleguide.homepage,
+		title: config.options.styleguide.title,
+		builder: 'node_modules/michelangelo/kss_styleguide/custom-template/'
+	});
 });
 

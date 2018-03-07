@@ -1,5 +1,3 @@
-const emily = require('emily-cm');
-
 const paths = {
 	watch: 'src/**/*',
 	scss: {
@@ -35,8 +33,11 @@ const options = {
 		value: 'dist'
 	},
 	styleguide: {
-		dist: 'styleguide',
-		css: 'dist/assets/css/app.css'
+		title: 'Styleguide title',
+		files: ['src'],
+		cssDist: 'app.css', 		// In the css dist directory
+		homepage: 'homepage.md', 	// in the styleguide directory
+		dist: 'styleguide'
 	},
 	abovefold: {
 		dist: 'dist/assets/css/abovethefold',
@@ -51,10 +52,12 @@ const options = {
 	}
 }
 
-
-let activeModules 	= emily.toFilename(emily.active);
-paths.scss.files 	= paths.scss.files.concat(activeModules.map((el)=>el+'*.scss'));
-paths.js.files[0]	= paths.js.files[0].concat(activeModules.map((el)=>el+'*.js'));
+try{
+	const emily = require('emily-cm');
+	let activeModules 	= emily.toFilename(emily.active);
+	paths.scss.files 	= paths.scss.files.concat(activeModules.map((el)=>el+'*.scss'));
+	paths.js.files[0]	= paths.js.files[0].concat(activeModules.map((el)=>el+'*.js'));
+} catch(e){}
 
 const config = {};
 config.paths = paths;

@@ -9,7 +9,7 @@ This repository contains a lightweight easy to extend task-library, meant to kic
 - `npm run assets` Copys all assets to the target directory.
 - `npm run dev` Default watch task. Uses the assets, styles, views and scripts tasks.
 - `npm run sync` Watch task with browsersync. Uses assets, styles, views and scripts tasks.
-- `npm run guide` Generates a styleguide using `mdcss`.
+- `npm run guide` Generates a styleguide using `kss-node`.
 - `npm run abovefold` Generates abovethefold css files using `puppeteer`. For the time beeing, puppeteer needs to be installed manually because it gets shipped with Chromium (~150MB) everytime. Use `npm install --save-dev puppeteer` to use this script properly.
 
 ## Config

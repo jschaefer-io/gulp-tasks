@@ -8,7 +8,7 @@
         "files": [
             {
                 "name": "module.scss",
-                "content": "@import '../../app.scss';\n\n.${module}{\n\n}"
+                "content": "@import '../../app.scss';\n\n// ${module}\n//\n// Module description\n//\n// .${module}--mod\t- Description\n//\n// Markup:\n// <div class=\"${module} {{modifier_class}}\"></div>\n//\n// Style guide: modules.${module}\n\n.${module}{\n\n}"
             },
             {
                 "name": "module.js",
