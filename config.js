@@ -54,10 +54,12 @@ const options = {
 
 try{
 	const emily = require('emily-cm');
-	let activeModules 	= emily.toFilename(emily.active);
+	let activeModules 	= emily.toPaths(emily.active());
 	paths.scss.files 	= paths.scss.files.concat(activeModules.map((el)=>el+'*.scss'));
 	paths.js.files[0]	= paths.js.files[0].concat(activeModules.map((el)=>el+'*.js'));
-} catch(e){}
+} catch(e){
+	console.log('An error occurred while using emily-cm.');
+}
 
 const config = {};
 config.paths = paths;
