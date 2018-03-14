@@ -1,7 +1,8 @@
-- title = "index.html"
+include includes/modules.pug
+include includes/page-boiler
 
-doctype html
-html
-	include includes/head.pug
-	body
-		include includes/foot.pug
+- title = 'index.html';
+- pageKey = 'home';
+
++page-boiler
+	p page content

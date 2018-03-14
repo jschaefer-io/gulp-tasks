@@ -1,0 +1,10 @@
+mixin page-boiler()
+	doctype html
+	html
+		include head
+		body
+			include header
+			if block
+				block
+				include footer
+	include foot
