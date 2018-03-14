@@ -18,7 +18,8 @@ var gulp 			= require('gulp'),
 	kss 			= require('kss'),
 	lec 			= require('gulp-line-ending-corrector'),
 	babel 			= require('gulp-babel'),
-	pug 			= require('gulp-pug');
+	pug 			= require('gulp-pug'),
+	emlProvide		= require('./provide-modules')();
 
 
 /**
@@ -86,7 +87,7 @@ gulp.task('scripts', function(){
 * gulp basic watch task
 **/
 gulp.task('default', ['scripts', 'styles', 'assets', 'views'], function(){
-	return gulp.watch(config.paths.watch, ['scripts', 'styles', 'assets']);
+	return gulp.watch(config.paths.watch, ['scripts', 'styles', 'assets', 'views']);
 })
 
 

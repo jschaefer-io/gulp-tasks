@@ -13,6 +13,7 @@ const paths = {
 	},
 	pug: {
 		files: ['src/views/*.pug'],
+		modules: 'src/views/includes/modules.pug',
 		dist: 'dist'
 	},
 	assets: {
