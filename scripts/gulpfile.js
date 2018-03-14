@@ -37,7 +37,7 @@ gulp.task('assets', function(){
  * gulp minified build task
  **/
 gulp.task('build', ['styles', 'scripts', 'assets'], function(){
-	gulp.src(config.paths.scss.dist + '/**/*.scss', {base: './'})
+	gulp.src(config.paths.scss.dist + '/**/*.css', {base: './'})
 		.pipe(cssmin())
 		.pipe(gulp.dest('./'));
 
