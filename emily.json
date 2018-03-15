@@ -2,9 +2,7 @@
   "path": "src/modules",
   "modules": {},
   "defaults": {
-    "commands": [
-      "npm init -y"
-    ],
+    "commands": [],
     "files": [
       {
         "name": "module.scss",
