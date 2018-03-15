@@ -182,8 +182,7 @@ gulp.task('styleguide', ['styles'], function () {
 		destination: config.options.styleguide.dist,
 		css: [config.options.styleguide.cssDist],
 		homepage: config.options.styleguide.homepage,
-		title: config.options.styleguide.title,
-		builder: 'node_modules/michelangelo/kss_styleguide/custom-template/'
+		title: config.options.styleguide.title
 	});
 });
 

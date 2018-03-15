@@ -37,7 +37,7 @@ const options = {
 		title: 'Styleguide title',
 		files: ['src'],
 		cssDist: 'app.css', 		// In the css dist directory
-		homepage: 'homepage.md', 	// in the styleguide directory
+		homepage: '../README.md', 	// Relative to the styleguide directory
 		dist: 'styleguide'
 	},
 	abovefold: {
