@@ -1,7 +1,7 @@
 /**
  * Include Configuration File
  */
-const config = require('../config');
+const config = require('./provide-config');
 
 /**
  * Dependencies

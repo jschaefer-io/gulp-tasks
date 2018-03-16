@@ -12,7 +12,8 @@
     "sync": "gulp --gulpfile scripts/gulpfile.js --cwd . sync",
     "guide": "gulp --gulpfile scripts/gulpfile.js --cwd . styleguide",
     "views": "gulp --gulpfile scripts/gulpfile.js --cwd . views",
-    "abovefold": "npm run build & node scripts/abovethefold.js & gulp --gulpfile scripts/gulpfile.js --cwd . abovethefold"
+    "abovefold": "npm run build & node scripts/abovethefold.js & gulp --gulpfile scripts/gulpfile.js --cwd . abovethefold",
+    "setup": "node scripts/setup.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.18.13",
     "emily-cm": "^1.1.1",
+    "execa": "^0.10.0",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
@@ -34,6 +36,7 @@
     "gulp-postcss": "^7.0.0",
     "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
+    "jsonfile": "^4.0.0",
     "kss": "^3.0.0-beta.18",
     "write-file-atomic": "^2.3.0"
   },
