@@ -15,7 +15,6 @@ var gulp 			= require('gulp'),
 	autoprefixer 	= require('gulp-autoprefixer'),
 	browserSync 	= require('browser-sync').create(),
 	postcss 		= require('gulp-postcss'),
-	kss 			= require('kss'),
 	lec 			= require('gulp-line-ending-corrector'),
 	babel 			= require('gulp-babel'),
 	pug 			= require('gulp-pug'),
@@ -167,22 +166,3 @@ gulp.task('views', function() {
 		}))
 		.pipe(gulp.dest(config.paths.pug.dist));
 });
-
-
-/**
- * generates a styleguide from the compiled css
- * @see https://github.com/kss-node/kss-node
- **/
-gulp.task('styleguide', ['styles'], function () {
-	gulp.src(config.paths.scss.dist + '/' + config.options.styleguide.cssDist)
-		.pipe(gulp.dest(config.options.styleguide.dist));
-
-	return kss({
-		source: config.options.styleguide.files,
-		destination: config.options.styleguide.dist,
-		css: [config.options.styleguide.cssDist],
-		homepage: config.options.styleguide.homepage,
-		title: config.options.styleguide.title
-	});
-});
-
