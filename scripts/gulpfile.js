@@ -17,8 +17,7 @@ var gulp 			= require('gulp'),
 	postcss 		= require('gulp-postcss'),
 	lec 			= require('gulp-line-ending-corrector'),
 	babel 			= require('gulp-babel'),
-	pug 			= require('gulp-pug'),
-	emlProvide		= require('./provide-modules')();
+	tasap 			= require('gulp-tasap');
 
 
 /**
@@ -35,7 +34,7 @@ gulp.task('assets', function(){
 /**
  * gulp minified build task
  **/
-gulp.task('build', ['styles', 'scripts', 'assets'], function(){
+gulp.task('build', ['scripts', 'styles', 'assets', 'views'], function(){
 	gulp.src(config.paths.scss.dist + '/**/*.css', {base: './'})
 		.pipe(cssmin())
 		.pipe(gulp.dest('./'));
@@ -154,15 +153,14 @@ gulp.task('abovethefold', function(){
 
 
 /**
- * Builds the HTML-Templates using pug-templates
- * @see https://pugjs.org/api/getting-started.html
+ * Builds the HTML-Templates using tasap.js
  */
 gulp.task('views', function() {
-	return gulp.src(config.paths.pug.files)
-		.pipe(pug({
-			pretty: true
+	return gulp.src(config.paths.tasap.files)
+		.pipe(tasap({
+			pattern: '[A-Z]\\w+'
 		}).on('error', function(error){
 			return notify().write(error);
 		}))
-		.pipe(gulp.dest(config.paths.pug.dist));
+		.pipe(gulp.dest(config.paths.tasap.dist));
 });

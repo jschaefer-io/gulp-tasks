@@ -6,15 +6,15 @@
     "files": [
       {
         "name": "module.scss",
-        "content": "@import '../../settings.scss';\n\n// ${module}\n//\n// Module description\n//\n// .${module}--mod\t- Description\n//\n// Markup:\n// <div class=\"${module} {{modifier_class}}\"></div>\n//\n// Style guide: modules.${module}\n\n.${module}{\n\n}"
+        "content": "@import '../../settings.scss';\n\n.${module}{\n\n}"
       },
       {
         "name": "module.js",
         "content": "'use strict'\n\nPage.addModule('${module}', ()=>{\n\n});"
       },
       {
-        "name": "module.pug",
-        "content": "mixin ${module}(foobar)\n\tdiv.${module}\n\t\th1= foobar\n\t\tif block\n\t\t\tblock"
+        "name": "module.html",
+        "content": "<Module name=\"${module}\">\n\t<div class=\"${module}\">\n\t\t{{ this.state.Block() }}\n\t</div>\n</Module>"
       }
     ]
   }

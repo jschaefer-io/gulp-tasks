@@ -16,11 +16,10 @@
             ],
             "dist": "dist/assets/js"
         },
-        "pug": {
+        "tasap": {
             "files": [
-                "src/views/*.pug"
+                "src/views/*.html"
             ],
-            "modules": "src/views/includes/modules.pug",
             "dist": "dist"
         },
         "assets": {

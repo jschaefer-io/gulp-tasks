@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * Static Page API to handle module loading and piping data between them
+ * Static Page API to handle module loading
  * @hideconstructor
  * @abstract
  * @throws {Error} If this abstract class is instantiated
