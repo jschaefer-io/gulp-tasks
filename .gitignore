@@ -4,3 +4,4 @@ styleguide/
 package-lock\.json
 abovethefold\.json
 src/views/includes/modules.pug
+.idea

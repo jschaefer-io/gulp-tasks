@@ -1,7 +1,6 @@
 const jsonfile = require('jsonfile');
 const emily = require('emily-cm');
 
-
 let config = jsonfile.readFileSync('config.json');
 try{
 	let activeModules 	= emily.toPaths(emily.active());
@@ -10,6 +9,5 @@ try{
 } catch(e){
 	console.log('An error occurred while using emily-cm.');
 }
-
 
 module.exports = config;

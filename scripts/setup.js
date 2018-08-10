@@ -28,11 +28,11 @@ templates.forEach((tmpl, index)=>{
 		found = index;
 	}
 });
+
 // Cancel if template not found
 if (found === false) {
 	throw new Error('Invalid template name: Template with this name could not be found.');
 }
-
 template = templates[found];
 
 

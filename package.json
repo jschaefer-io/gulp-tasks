@@ -18,9 +18,9 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "browser-sync": "^2.23.6",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.24.6",
     "emily-cm": "^1.2.0",
     "execa": "^0.10.0",
     "glob": "^7.1.2",
@@ -30,9 +30,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-cssmin": "^0.2.0",
     "gulp-jsmin": "^0.1.5",
-    "gulp-line-ending-corrector": "^1.0.2",
     "gulp-notify": "^3.2.0",
-    "gulp-postcss": "^7.0.1",
     "gulp-sass": "^4.0.0",
     "gulp-tasap": "^1.0.3",
     "jsonfile": "^4.0.0"

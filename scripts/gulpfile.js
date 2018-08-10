@@ -6,7 +6,7 @@ const config = require('./provide-config');
 /**
  * Dependencies
  **/
-var gulp 			= require('gulp'),
+const gulp 			= require('gulp'),
 	concat 			= require('gulp-concat'),
 	sass 			= require('gulp-sass'),
 	jsmin			= require('gulp-jsmin'),
@@ -14,8 +14,6 @@ var gulp 			= require('gulp'),
 	notify 			= require('gulp-notify'),
 	autoprefixer 	= require('gulp-autoprefixer'),
 	browserSync 	= require('browser-sync').create(),
-	postcss 		= require('gulp-postcss'),
-	lec 			= require('gulp-line-ending-corrector'),
 	babel 			= require('gulp-babel'),
 	tasap 			= require('gulp-tasap');
 
@@ -115,41 +113,6 @@ gulp.task('sync-build', ['scripts', 'styles', 'assets', 'views'], function(done)
     done();
 });
 
-
-/**
- * gulp task to generate the above the fold css files from the abovethefold.json
- **/
-gulp.task('abovethefold', function(){
-	let gen = require('../abovethefold.json'),
-		name = 'abovefold';
-
-	let list = [];
-	list.push({
-		name: '--all',
-		files: gen.full
-	});
-	for(let page in gen.pages){
-		list.push({
-			name: page.replace(/(\\|\/)/g, '__'),
-			files: gen.pages[page]
-		});
-	}
-	list.forEach((task)=>{
-		return gulp.src(task.files)
-			.pipe(sass({
-				includePaths: config.paths.scss.includePaths
-			}).on('error', function(error){
-				return notify().write(error);
-			}))
-			.pipe(autoprefixer({
-				browsers: ['last 2 versions'],
-				cascade: true
-			}))
-			.pipe(cssmin())
-			.pipe(concat('fold' + task.name + '.scss'))
-			.pipe(gulp.dest(config.options.abovefold.dist));
-	})
-});
 
 
 /**

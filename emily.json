@@ -1,5 +1,5 @@
 {
-  "path": "src/modules",
+  "path": "src/eml-modules",
   "modules": {},
   "defaults": {
     "commands": [],
@@ -10,7 +10,7 @@
       },
       {
         "name": "module.js",
-        "content": "'use strict'\n\nPage.addModule('${module}', class extends Module{\n\tinit(){\n\t\tthis.on('modules-ready', (res, rej, data)=>{\n\t\t\tthis.ready(res, rej, data);\n\t\t});\n\t}\n\tready(){\n\t\tconsole.log(this.name + ' is ready');\n\t}\n});"
+        "content": "'use strict'\n\n// Module: ${module}"
       },
       {
         "name": "module.html",

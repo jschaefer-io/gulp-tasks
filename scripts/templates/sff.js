@@ -1,16 +1,15 @@
 
 /**
- * Foundation-Sites Template
+ * sff base
  * @type {Object}
  */
 module.exports = function(config){
 	return {
-		name: 'jsio',
+		name: 'sff',
 		install: {
 			dependencies: [
 				'normalize.css',
-				'sff',
-				'slim-query'
+				'sff'
 			],
 			files: [
 				{
@@ -35,4 +34,4 @@ module.exports = function(config){
 			files: []
 		}
 	}
-}
+};
