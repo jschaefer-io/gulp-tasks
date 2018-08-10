@@ -11,7 +11,7 @@
         "js": {
             "files": [
                 [
-                    "src/scss/app.js"
+                    "src/js/app.js"
                 ]
             ],
             "dist": "dist/assets/js"
