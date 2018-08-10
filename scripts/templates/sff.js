@@ -26,9 +26,7 @@ module.exports = function(config){
 			]
 		},
 		js: {
-			files: [
-				'node_modules/slim-query/dist/slim-query.js',
-			]
+			files: []
 		},
 		assets: {
 			files: []
