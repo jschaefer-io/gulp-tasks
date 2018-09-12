@@ -70,7 +70,7 @@ gulp.task('scripts', function(){
 		gulp.src(jsFile)
 			.pipe(concat('app.js'))
 			.pipe(babel({
-				presets: ['env']
+				presets: ['@babel/env']
 			}).on('error', function(error){
 				return notify().write(error);
 			}))
