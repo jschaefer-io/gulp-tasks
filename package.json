@@ -33,7 +33,7 @@
     "gulp-notify": "^3.2.0",
     "gulp-sass": "^4.0.1",
     "gulp-tasap": "^1.0.6",
-    "jsonfile": "^4.0.0"
+    "jsonfile": "^5.0.0"
   },
   "repository": {
     "type": "git",
