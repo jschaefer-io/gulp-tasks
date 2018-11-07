@@ -12,6 +12,3 @@ This repository contains a lightweight easy to extend task-library, meant to kic
 
 ## Config
 Main configuration happens in the `config.js`-File.
-
-## Component Management
-This project uses Emily-CM, a slim component manager. See [its repository for the documentation](https://github.com/jschaefer-io/emily-cm#readme)

@@ -20,7 +20,6 @@
     "@babel/core": "^7.0.1",
     "@babel/preset-env": "^7.0.0",
     "browser-sync": "^2.24.7",
-    "emily-cm": "^1.3.3",
     "execa": "^1.0.0",
     "glob": "^7.1.3",
     "gulp": "^3.9.1",
