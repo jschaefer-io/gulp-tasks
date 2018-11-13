@@ -1,7 +1,10 @@
-const config = require('./provide-config');
+const jsonfile = require('jsonfile');
 const gulp = require('gulp');
 const fs = require('fs');
 const path = require('path');
+
+// Load main config file
+const config = jsonfile.readFileSync('config.json');
 
 // Load all tasks from the gulp-tasks folder
 const taskFolder = path.resolve(__dirname, 'gulp-tasks');
