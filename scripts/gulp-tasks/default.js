@@ -6,6 +6,6 @@ const gulp = require('gulp');
 module.exports = {
     before: ['scripts', 'styles', 'assets', 'views'],
     task: (config) => {
-        return gulp.watch(config.paths.watch, ['scripts', 'styles', 'assets', 'views']);
+        return gulp.watch(config.paths.watch, gulp.series('scripts', 'styles', 'assets', 'views'));
     }
 };

@@ -20,6 +20,6 @@ module.exports = {
             obj.proxy = config.options.sync.value;
         }
         sync.init(obj);
-        return gulp.watch(config.paths.watch, ['sync-build'])
+        return gulp.watch(config.paths.watch, gulp.series('sync-build'));
     }
 };
