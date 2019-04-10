@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const merge = require('merge-stream');
 
 /**
  * gulp asset copy task
@@ -6,9 +7,10 @@ const gulp = require('gulp');
 module.exports = {
     before: [],
     task: (config) => {
-        return config.paths.assets.files.forEach((file) => {
-            gulp.src(file.from)
+        const assets = config.paths.assets.files.map((file) => {
+            return gulp.src(file.from)
                 .pipe(gulp.dest(config.paths.assets.dist + '/' + file.to));
         });
+        return merge(...assets);
     }
 };

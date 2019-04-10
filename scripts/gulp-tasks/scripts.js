@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const notify = require('gulp-notify');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
+const merge = require('merge-stream');
 
 /**
  * gulp basic scripts task
@@ -9,8 +10,8 @@ const babel = require('gulp-babel');
 module.exports = {
     before: [],
     task: (config) => {
-        return config.paths.js.files.forEach((jsFile) => {
-            gulp.src(jsFile)
+        const scripts = config.paths.js.files.map((jsFile) => {
+            return gulp.src(jsFile)
                 .pipe(concat('app.js'))
                 .pipe(babel({
                     presets: ['@babel/env']
@@ -19,5 +20,6 @@ module.exports = {
                 }))
                 .pipe(gulp.dest(config.paths.js.dist));
         });
+        return merge(...scripts);
     }
 };

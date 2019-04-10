@@ -42,8 +42,6 @@ while (tmpTaskList.length > 0) {
 // Register them to gulp based on their filename
 taskList.forEach((taskInfo) => {
     gulp.task(taskInfo.name, gulp.series(...taskInfo.task.before, (...a) => {
-        return new Promise(resolve => {
-            resolve(taskInfo.task.task(config, ...a));
-        });
+        return taskInfo.task.task(config, ...a);
     }));
 });
