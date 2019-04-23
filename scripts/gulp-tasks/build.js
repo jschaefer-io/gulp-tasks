@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const jsmin = require('gulp-jsmin');
-const cssmin = require('gulp-cssmin');
+const cleanCSS = require('gulp-clean-css');
 const merge = require('merge-stream');
 
 /**
@@ -10,7 +10,7 @@ module.exports = {
     before: ['scripts', 'styles', 'assets', 'views'],
     task: (config) => {
         const styles = gulp.src(config.paths.scss.dist + '/**/*.css', {base: './'})
-            .pipe(cssmin())
+            .pipe(cleanCSS())
             .pipe(gulp.dest('./'));
 
         const scripts = gulp.src(config.paths.js.dist + '/**/*.js', {base: './'})
