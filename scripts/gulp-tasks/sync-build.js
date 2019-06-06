@@ -5,9 +5,9 @@ const browserSync = require('browser-sync');
  **/
 module.exports = {
     before: ['scripts', 'styles', 'assets', 'views'],
-    task: () => {
+    task: (settings, done) => {
         const sync = browserSync.get('Web-Tasks Sync');
         sync.reload();
-        console.log('reload');
+        done();
     }
 };
